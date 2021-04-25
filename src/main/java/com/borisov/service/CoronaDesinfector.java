@@ -1,12 +1,14 @@
 package com.borisov.service;
 
-import com.borisov.infrostrucrure.ObjectFactory;
+import com.borisov.infrostrucrure.annotation.InjectObject;
 import com.borisov.model.Room;
 
 public class CoronaDesinfector {
 
-    private Announcer announcer = ObjectFactory.getFactoryInstance().createInstance(Announcer.class);
-    private Policemen policemen = ObjectFactory.getFactoryInstance().createInstance(Policemen.class);
+    @InjectObject
+    private Announcer announcer;
+    @InjectObject
+    private Policemen policemen;
 
     public void start(Room room){
         announcer.announce("начинаем дезинфекцию, покиньте помещение!");

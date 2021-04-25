@@ -1,11 +1,13 @@
-package com.borisov.infrostrucrure;
+package com.borisov.infrostrucrure.postprocessor;
 
+import com.borisov.infrostrucrure.JavaProp;
+import com.borisov.infrostrucrure.Prop;
 import com.borisov.infrostrucrure.annotation.InjectProperty;
 import lombok.SneakyThrows;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-public class InjectPropertiesObjectPostProcessor implements ObjectPostProcessor {
+public class InjectPropertiesPostProcessor implements PostProcessor {
 
     private final Prop prop = new JavaProp("properties.properties");
 

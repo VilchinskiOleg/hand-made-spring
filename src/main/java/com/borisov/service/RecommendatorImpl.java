@@ -1,10 +1,12 @@
 package com.borisov.service;
 
 import com.borisov.infrostrucrure.annotation.InjectProperty;
+import com.borisov.infrostrucrure.annotation.Singleton;
 
+@Singleton
 public class RecommendatorImpl implements Recommendator {
 
-    @InjectProperty
+    @InjectProperty(value = "wisky")
     private String alcohol;
 
     @Override
