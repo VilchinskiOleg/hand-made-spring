@@ -1,4 +1,4 @@
-package com.borisov.infrostrucrure;
+package com.borisov.infrostrucrure.config;
 
 import org.reflections.Reflections;
 

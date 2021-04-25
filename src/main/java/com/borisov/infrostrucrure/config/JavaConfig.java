@@ -1,4 +1,4 @@
-package com.borisov.infrostrucrure;
+package com.borisov.infrostrucrure.config;
 
 import lombok.Getter;
 import org.reflections.Reflections;

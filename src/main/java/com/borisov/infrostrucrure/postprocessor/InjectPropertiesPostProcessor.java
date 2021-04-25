@@ -1,7 +1,8 @@
 package com.borisov.infrostrucrure.postprocessor;
 
-import com.borisov.infrostrucrure.JavaProp;
-import com.borisov.infrostrucrure.Prop;
+import com.borisov.infrostrucrure.ApplicationContext;
+import com.borisov.infrostrucrure.property.JavaProp;
+import com.borisov.infrostrucrure.property.Prop;
 import com.borisov.infrostrucrure.annotation.InjectProperty;
 import lombok.SneakyThrows;
 import java.lang.reflect.Field;
@@ -17,7 +18,7 @@ public class InjectPropertiesPostProcessor implements PostProcessor {
     }
 
     @Override
-    public void process(Object instance) {
+    public void process(Object instance, ApplicationContext context) {
         Class<?> type = instance.getClass();
         Arrays.stream(type.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(InjectProperty.class))

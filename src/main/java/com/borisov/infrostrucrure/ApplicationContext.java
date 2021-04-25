@@ -1,14 +1,44 @@
 package com.borisov.infrostrucrure;
 
+import com.borisov.infrostrucrure.annotation.Singleton;
+import com.borisov.infrostrucrure.config.Config;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ApplicationContext {
 
-    private ObjectFactory objectFactory = ObjectFactory.getFactoryInstance();
-    private Map<Class, Object> cache = new ConcurrentHashMap<>();
+    @Setter
+    private ObjectFactory objectFactory;
+    private final Map<Class, Object> cache = new ConcurrentHashMap<>();
+    @Getter
+    private final Config config;
+
+    public ApplicationContext(Config config) {
+        this.config = config;
+    }
 
     public <T> T getInstance(Class<T> type) {
-        return null;
+        //Check cash:
+        if (cache.containsKey(type)) {
+            return (T) cache.get(type);
+        }
+
+        //Choose implementation (delegate to config):
+        Class<? extends T> implClass = type;
+        if (type.isInterface()) {
+            implClass = config.getImplClass(type);
+        }
+
+        //Create instance (delegate to factory):
+        T instance = objectFactory.createInstance(implClass);
+
+        //Cashing instance if has @Singleton:
+        if (implClass.isAnnotationPresent(Singleton.class)) {
+            cache.put(type, instance);
+        }
+
+        return instance;
     }
 }

@@ -1,10 +1,11 @@
 package com.borisov.service;
 
-import com.borisov.infrostrucrure.ObjectFactory;
+import com.borisov.infrostrucrure.annotation.InjectObject;
 
 public class AnnouncerImpl implements Announcer {
 
-    private Recommendator recommendator = ObjectFactory.getFactoryInstance().createInstance(Recommendator.class);
+    @InjectObject
+    private Recommendator recommendator;
 
     @Override
     public void announce(String message) {

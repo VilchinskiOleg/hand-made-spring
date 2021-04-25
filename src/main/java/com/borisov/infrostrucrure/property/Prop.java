@@ -1,4 +1,4 @@
-package com.borisov.infrostrucrure;
+package com.borisov.infrostrucrure.property;
 
 public interface Prop {
 

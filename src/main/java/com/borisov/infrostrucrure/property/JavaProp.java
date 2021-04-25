@@ -1,4 +1,4 @@
-package com.borisov.infrostrucrure;
+package com.borisov.infrostrucrure.property;
 
 import lombok.SneakyThrows;
 import java.io.BufferedReader;
