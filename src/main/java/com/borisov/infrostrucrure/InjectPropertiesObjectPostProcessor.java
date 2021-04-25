@@ -7,14 +7,11 @@ import java.util.Arrays;
 
 public class InjectPropertiesObjectPostProcessor implements ObjectPostProcessor {
 
-    private final Prop prop;
-
-    public InjectPropertiesObjectPostProcessor(String resourceName) {
-        this.prop = new JavaProp(resourceName);
-    }
+    private final Prop prop = new JavaProp("properties.properties");
 
     @Override
-    public void process(Object instance, Class<?> type) {
+    public void process(Object instance) {
+        Class<?> type = instance.getClass();
         Arrays.stream(type.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(InjectProperty.class))
                 .forEach(field -> setPropValueToField(field, instance));

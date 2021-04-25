@@ -8,11 +8,16 @@ import java.util.*;
 public class ObjectFactory {
 
     private static final ObjectFactory instance = new ObjectFactory();
-    private Config config;
-    private ObjectPostProcessor postProcessor = new InjectPropertiesObjectPostProcessor("properties.properties");
+    private final Config config;
+    private final List<ObjectPostProcessor> objectPostProcessors;
 
+    @SneakyThrows
     private ObjectFactory() {
-        config = new JavaConfig("com.borisov.service", new HashMap<>(Map.of(Policemen.class, AngryPolicemen.class)));
+        config = new JavaConfig("com.borisov", new HashMap<>(Map.of(Policemen.class, AngryPolicemen.class)));
+        objectPostProcessors = new ArrayList<>();
+        for (Class<? extends ObjectPostProcessor> implClass : config.getScanner().getSubTypesOf(ObjectPostProcessor.class)) {
+            objectPostProcessors.add(implClass.getDeclaredConstructor().newInstance());
+        }
     }
 
     public static ObjectFactory getFactoryInstance() {
@@ -34,7 +39,7 @@ public class ObjectFactory {
                 .newInstance();
 
         //Tune object (delegate to post processors):
-        postProcessor.process(implInstance, implClass);
+        objectPostProcessors.forEach(postProcessor -> postProcessor.process(implInstance));
 
         return implInstance;
     }
