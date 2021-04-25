@@ -1,6 +1,6 @@
 package com.borisov.service;
 
-public class PolicemenImpl implements Policemen {
+public class LoyaltyPolicemen implements Policemen {
 
     @Override
     public void checkRoom() {
