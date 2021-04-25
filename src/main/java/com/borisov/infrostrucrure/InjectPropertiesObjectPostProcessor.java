@@ -10,6 +10,11 @@ public class InjectPropertiesObjectPostProcessor implements ObjectPostProcessor 
     private final Prop prop = new JavaProp("properties.properties");
 
     @Override
+    public boolean support(Object instance) {
+        return true;
+    }
+
+    @Override
     public void process(Object instance) {
         Class<?> type = instance.getClass();
         Arrays.stream(type.getDeclaredFields())

@@ -39,7 +39,11 @@ public class ObjectFactory {
                 .newInstance();
 
         //Tune object (delegate to post processors):
-        objectPostProcessors.forEach(postProcessor -> postProcessor.process(implInstance));
+        objectPostProcessors.forEach(postProcessor -> {
+            if (postProcessor.support(implInstance)) {
+                postProcessor.process(implInstance);
+            }
+        });
 
         return implInstance;
     }
