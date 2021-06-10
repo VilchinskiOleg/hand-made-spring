@@ -20,21 +20,22 @@ public class ApplicationContext {
     }
 
     public <T> T getInstance(Class<T> type) {
-        //Check cash:
+
+        //TODO: Check cash:
         if (cache.containsKey(type)) {
             return (T) cache.get(type);
         }
 
-        //Choose implementation (delegate to config):
+        //TODO: Choose implementation (delegate to config):
         Class<? extends T> implClass = type;
         if (type.isInterface()) {
             implClass = config.getImplClass(type);
         }
 
-        //Create instance (delegate to factory):
+        //TODO: Create instance (delegate to factory):
         T instance = objectFactory.createInstance(implClass);
 
-        //Cashing instance if has @Singleton:
+        //TODO: Cashing instance if has @Singleton:
         if (implClass.isAnnotationPresent(Singleton.class)) {
             cache.put(type, instance);
         }
